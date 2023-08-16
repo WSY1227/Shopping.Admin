@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Model.Other;
 using SqlSugar;
 using WebApi.Config;
 
@@ -36,6 +37,8 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 });
 // 注册AutoMapper
 builder.Services.AddAutoMapper(typeof(AutoMapperConfigs));
+
+builder.Services.Configure<JWTTokenOptions>(builder.Configuration.GetSection("JWTTokenOptions"));
 
 var app = builder.Build();
 
