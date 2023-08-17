@@ -41,11 +41,11 @@ public class CustomJwtService : ICustomJwtService
                 issuer: _jwtTokenOptions.Issuer,
                 audience: _jwtTokenOptions.Audience,
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(30),// 十分钟
+                expires: DateTime.Now.AddMinutes(30), // 十分钟
                 notBefore: null,
                 signingCredentials: creds);
-
-            return "";
+            var res = new JwtSecurityTokenHandler().WriteToken(token);
+            return res;
         });
 
         return result;

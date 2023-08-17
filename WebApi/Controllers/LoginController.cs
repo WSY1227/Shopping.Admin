@@ -21,6 +21,7 @@ public class LoginController : ControllerBase
         _jwtService = jwtService;
     }
 
+    [HttpPost]
     public async Task<ApiResult> GetToken([FromBody] LoginReq req)
     {
         if (ModelState.IsValid)
