@@ -4,15 +4,12 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Model.Other;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using SqlSugar;
 using WebApi.Config;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // 替换默认的容器
@@ -72,6 +69,16 @@ builder.Services.Configure<JWTTokenOptions>(builder.Configuration.GetSection("JW
 
 #endregion
 
+// 设置JSON返回日期的格式
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    // 忽略循环引用
+    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+    // 统一日期格式
+    options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+    // 设置Json序列化时的Key与model中属性名一致
+    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
