@@ -15,7 +15,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
     // 设置标题和版本
-    options.SwaggerDoc("v1", new OpenApiInfo {Title = "Admin.Api", Version = "v1"});
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Admin.Api", Version = "v1" });
     // 添加安全定义
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
@@ -25,6 +25,21 @@ builder.Services.AddSwaggerGen(options =>
         Type = SecuritySchemeType.ApiKey,
         BearerFormat = "JWT",
         Scheme = "Bearer"
+    });
+    // 添加安全要求
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference()
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
     });
 });
 // 替换默认的容器
