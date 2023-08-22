@@ -6,7 +6,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace WebApi.Config;
 
-public class DefaultValueParameterFilter: ISchemaFilter
+public class DefaultValueSchemaFilter: ISchemaFilter
 {
     public void Apply(OpenApiSchema? schema, SchemaFilterContext context)
     {

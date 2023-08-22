@@ -16,6 +16,8 @@ builder.Services.AddSwaggerGen(options =>
 {
     // 设置标题和版本
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "Admin.Api", Version = "v1" });
+    // 设置对象类型参数的默认值
+    options.SchemaFilter<DefaultValueSchemaFilter>();
     // 添加安全定义
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
